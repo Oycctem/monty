@@ -1,14 +1,6 @@
 #include "monty.h"
-/**
- * get_head - gets function for the head pointer
- * Return: returns the head pointer
- */
-stack_t **get_head(void)
-{
-	static stack_t *head;
+stack_t *head = NULL;
 
-	return (&head);
-}
 /**
  * main - entry point of the code
  * @argc: number of args
