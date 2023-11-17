@@ -1,9 +1,8 @@
 #include "monty.h"
 /**
- *
- *
- *
- *
+ * FindFunction - finds the appropriate function
+ * @parsed: array of string containing the parsed value
+ * Return: returns a pointer to the function
  */
 void (*FindFunction(char **parsed))(stack_t **, unsigned int)
 {
@@ -23,14 +22,14 @@ void (*FindFunction(char **parsed))(stack_t **, unsigned int)
 		{"mod", StackMod},
 		{"pchar", CharPrint},
 		{"pstr", StrPrint},
-		{"rot1", rot1},
+		{"rotl", rotl},
 		{"rotr", rotr},
 		{NULL, NULL}
 	};
 
 	for (i = 0; functions_list[i].opcode != NULL; i++)
 	{
-		if (strcmp(functions_list[i].opcode, pasrsed[0]) == 0)
+		if (strcmp(functions_list[i].opcode, parsed[0]) == 0)
 		{
 			return (functions_list[i].f);
 		}
@@ -38,9 +37,8 @@ void (*FindFunction(char **parsed))(stack_t **, unsigned int)
 	return (NULL);
 }
 /**
- *
- *
- *
+ * OpenFile - opens a file for reading and caling the ReadFile to process
+ * @file_name: name of the file to open
  */
 void OpenFile(char *file_name)
 {
@@ -55,9 +53,8 @@ void OpenFile(char *file_name)
 	fclose(fdes);
 }
 /**
- *
- *
- *
+ * ReadFile - reads and processes the contents of the file opened
+ * @fdes: pointer to the file
  */
 void ReadFile(FILE *fdes)
 {

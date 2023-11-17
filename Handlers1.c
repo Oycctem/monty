@@ -1,34 +1,50 @@
 #include "monty.h"
 /**
- *
- *
- *
+ * ParseLine - parse and process the line of input
+ * @buffer: the input line to be parsed
+ * @line_number: the current line being processed
+ * @format: the current format
+ * Return: returns the updated format
  */
 int ParseLine(char *buffer, int line_number, int format)
 {
-	char *opcode = NULL;
-	char *value = NULL;
+	void (*function)(stack_t **, unsigned int);
+	char *tokens[2];
 	const char *delim = "\n ";
 
 	if (buffer == NULL)
 	{
-		fprintf(stdeer; "Error: Invalid buffer in line %d\n", line_number);
+		fprintf(stderr, "Error: Invalid buffer in line %d\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	opcode = strtok(buffer, delim);
-	if (opcode == NULL)
+	tokens[0] = strtok(buffer, delim);
+	if (tokens[0] == NULL)
 	{
 		return (format);
 	}
-	value = strtok(NULL, delim);
-	if (strcmp(opcode, "stack") == 0)
+	tokens[1] = strtok(NULL, delim);
+	function = FindFunction(tokens);
+	if (function != NULL)
 	{
-		return (0);
+		function(NULL, line_number);
 	}
-	if (strcmp(opcode, "queue") == 0)
-	{
-		return (1);
-	}
-	FindFunction(opcode, value, line_number, format);
 	return (format);
+}
+/**
+ * NodesFree - frees all the nodes
+ */
+void NodesFree(void)
+{
+	stack_t *temp;
+
+	if (head == NULL)
+	{
+		return;
+	}
+	while (head != NULL)
+	{
+		temp = head;
+		head = head->next;
+		free(temp);
+	}
 }
