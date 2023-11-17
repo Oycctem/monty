@@ -66,13 +66,18 @@ void StackDiv(stack_t **stack, unsigned int line_number)
  */
 void StackMul(stack_t **stack, unsigned int line_number)
 {
+	int sum;
+
 	if (*stack == NULL || (*stack)->next == NULL)
 	{
 		HandleError("can't mul, stack too short", line_number);
 		return;
 	}
-	(*stack)->next->n *= (*stack)->n;
-	StackTopRemove(stack, line_number);
+	(*stack) = (*stack)->next;
+	sum = (*stack)->n * (*stack)->prev->n;
+	(*stack)->n = sum;
+	free((*stack)->prev);
+	(*stack)->prev = NULL;
 }
 /**
  * StackMod - computes the modulo of the second element by the top stack
