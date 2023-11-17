@@ -1,6 +1,5 @@
 #include "monty.h"
 stack_t *head = NULL;
-
 /**
  * main - entry point of the code
  * @argc: number of args

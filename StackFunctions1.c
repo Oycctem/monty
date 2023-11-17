@@ -4,25 +4,24 @@
  * @stack: pointer to the top of the stack
  * @line_number: the line number of file being processed
  */
-void StackAdding(stack_t **stack, unsigned int line_number)
+void StackAdding(stack_t **NewNode, unsigned int line_number)
 {
-	int n = 0;
-	stack_t *NewNode;
+	stack_t *temp;
 	(void) line_number;
 
-	NewNode = malloc(sizeof(stack_t));
-	if (!NewNode)
+	if (NewNode == NULL || *NewNode == NULL)
 	{
 		exit(EXIT_FAILURE);
 	}
-	NewNode->n = n;
-	NewNode->prev = NULL;
-	if (*stack != NULL)
+	if (head == NULL)
 	{
-		(*stack)->prev = NewNode;
+		head = *NewNode;
+		return;
 	}
-	NewNode->next = *stack;
-	*stack = NewNode;
+	temp = head;
+	head = *NewNode;
+	head->next = temp;
+	temp->prev = head;
 }
 /**
  * StackPrint - prints the elemnets of the stack
@@ -34,7 +33,7 @@ void StackPrint(stack_t **stack, unsigned int line_number)
 	stack_t *current = *stack;
 	(void) line_number;
 
-	while (current)
+	while (current != NULL)
 	{
 		printf("%d\n", current->n);
 		current = current->next;
@@ -68,13 +67,13 @@ void StackTopRemove(stack_t **stack, unsigned int line_number)
 {
 	stack_t *temp;
 
-	if (*stack == NULL)
+	if (stack == NULL || *stack == NULL)
 	{
 		HandleError("can't pop and empty stack", line_number);
 		return;
 	}
 	temp = *stack;
-	*stack = (*stack)->next;
+	*stack = temp->next;
 	free(temp);
 }
 /**

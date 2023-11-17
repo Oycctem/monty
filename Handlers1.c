@@ -8,8 +8,7 @@
  */
 int ParseLine(char *buffer, int line_number, int format)
 {
-	void (*function)(stack_t **, unsigned int);
-	char *tokens[2];
+	char *opcode, *val;
 	const char *delim = "\n ";
 
 	if (buffer == NULL)
@@ -17,17 +16,21 @@ int ParseLine(char *buffer, int line_number, int format)
 		fprintf(stderr, "Error: Invalid buffer in line %d\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	tokens[0] = strtok(buffer, delim);
-	if (tokens[0] == NULL)
+	opcode = strtok(buffer, delim);
+	if (opcode == NULL)
 	{
 		return (format);
 	}
-	tokens[1] = strtok(NULL, delim);
-	function = FindFunction(tokens);
-	if (function != NULL)
+	val = strtok(NULL, delim);
+	if (strcmp(opcode, "stack") == 0)
 	{
-		function(NULL, line_number);
+		return (0);
 	}
+	if (strcmp(opcode, "queue") == 0)
+	{
+		return (1);
+	}
+	FindFunction(opcode, val, line_number, format);
 	return (format);
 }
 /**

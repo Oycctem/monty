@@ -40,7 +40,7 @@ typedef struct instruction_s
 } instruction_t;
 
 extern stack_t *head;
-typedef void(*op_func)(stack_t **, unsigned int);
+typedef void (*op_func)(stack_t **, unsigned int);
 
 void StackAdd(stack_t **stack, unsigned int line_number);
 void StackSub(stack_t **stack, unsigned int line_number);
@@ -48,7 +48,7 @@ void StackDiv(stack_t **stack, unsigned int line_number);
 void StackMul(stack_t **stack, unsigned int line_number);
 void StackMod(stack_t **stack, unsigned int linr_number);
 
-void StackAdding(stack_t **stack, unsigned int line_number);
+void StackAdding(stack_t **, unsigned int line_number);
 void StackPrint(stack_t **stack, unsigned int line_number);
 void StackTopPrint(stack_t **stack, unsigned int line_number);
 void StackTopRemove(stack_t **stack, unsigned int line_number);
@@ -62,10 +62,14 @@ void StrPrint(stack_t **stack, unsigned int line_number);
 void rotl(stack_t **stack, unsigned int line_number);
 void rotr(stack_t **stack, unsigned int line_number);
 
-void (*FindFunction(char **parsed))(stack_t **, unsigned int);
+void FindFunction(char *, char *, int, int);
 void OpenFile(char *file_name);
 void ReadFile(FILE *fdes);
 int ParseLine(char *buffer, int line_number, int format);
+void FunctionCaller(op_func, char *, char *, int, int);
+void StackQueueAdd(stack_t **, unsigned int);
+stack_t *NodeCreate(int n);
+
 
 void HandleError(const char *format, ...);
 void NodesFree(void);
